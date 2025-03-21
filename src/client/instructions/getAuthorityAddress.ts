@@ -6,7 +6,7 @@ dotenv.config();
 
 anchor.setProvider(provider);
 
-const defaultProgramId = new PublicKey(process.env.PROGRAM_ID!);
+// const defaultProgramId = new PublicKey(process.env.PROGRAM_ID!);
 
 async function getAuthorityAddress(programId: PublicKey): Promise<[PublicKey, number]> {
   const AUTH_SEED = 'vault_and_lp_mint_auth_seed';

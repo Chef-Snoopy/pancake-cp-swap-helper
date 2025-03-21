@@ -7,7 +7,7 @@ dotenv.config();
 
 anchor.setProvider(provider);
 
-const defaultProgramId = new PublicKey(process.env.PROGRAM_ID!);
+// const defaultProgramId = new PublicKey(process.env.PROGRAM_ID!);
 
 async function getPoolAccountKey(
   programId: PublicKey,

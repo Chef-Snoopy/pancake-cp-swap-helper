@@ -11,7 +11,7 @@ dotenv.config();
 anchor.setProvider(provider);
 
 const IDL = getIDL();
-const defaultProgramId = new PublicKey(process.env.PROGRAM_ID!);
+// const defaultProgramId = new PublicKey(process.env.PROGRAM_ID!);
 
 // poolStateAddress is pool id
 async function getPoolState(programId: PublicKey, poolStateAddress: PublicKey) {
