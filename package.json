@@ -1,0 +1,50 @@
+{
+  "name": "pancake-cp-swap-helper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint \"src/**/*.ts\" --fix",
+    "dev": "npx ts-node src/server.ts",
+    "get_amm_config_addr": "ts-node src/client/instructions/getAmmConfigAddress.ts",
+    "get_authority_addr": "ts-node src/client/instructions/getAuthorityAddress.ts",
+    "get_pool_id": "ts-node src/client/instructions/getPoolId.ts",
+    "get_pool_state": "ts-node src/client/instructions/getPoolState.ts",
+    "get_amm_config": "ts-node src/client/instructions/getAmmConfig.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chef-Snoopy/pancake-cp-swap-helper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chef-Snoopy/pancake-cp-swap-helper/issues"
+  },
+  "homepage": "https://github.com/Chef-Snoopy/pancake-cp-swap-helper#readme",
+  "description": "",
+  "dependencies": {
+    "@project-serum/anchor": "^0.26.0",
+    "@solana/spl-governance": "^0.3.28",
+    "@solana/spl-token": "^0.4.12",
+    "@solana/web3.js": "^1.98.0",
+    "@types/chai": "^4.2.0",
+    "@types/mocha": ">=9.1.0",
+    "base-64": "^1.0.0",
+    "bs58": "^6.0.0",
+    "chai": "^4.2.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.13.10",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  }
+}
