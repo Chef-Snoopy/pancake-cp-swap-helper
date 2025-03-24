@@ -119,6 +119,29 @@ yarn pcs_cp --help
      Hex: '8888fcddc2427e5909000000000000000700000000000000'
      Base58: 'DSw1Ab12gjzNAFVfRrqoJeNn3o7irvEtf'
      ```
+6. **`yarn pcs_cp get_user_token_account`**
+
+   - **Description**: Retrieves the user's associated token account (ATA) for a given wallet address and token mint.
+   - **Usage**:
+     ```shell
+     yarn pcs_cp get_user_token_account --userAddress <userAddress> --tokenMintAddress <tokenMintAddress> [--isToken2022] [--allowOwnerOffCurve]
+     ```
+   - **Parameters**:
+     - `--userAddress` (required): The user's wallet address. Example: `Cf3AyfodkbVZcQdeLgSL6v1vabBXyrgcaj3Ntza3f5gP`.
+     - `--tokenMintAddress` (required): The mint address of the token. Example: `2aA85X6B5QHESQHkwQmQ7Y9tqk43Lxf91523YoHfvvZz`.
+     - `--isToken2022` (optional): Whether to use the Token 2022 program ID. Default: `false`.
+     - `--allowOwnerOffCurve` (optional): Whether to allow owner off curve. Default: `false`.
+
+   - **Example**:
+     ```shell
+     yarn pcs_cp get_user_token_account --userAddress Cf3AyfodkbVZcQdeLgSL6v1vabBXyrgcaj3Ntza3f5gP --tokenMintAddress 2aA85X6B5QHESQHkwQmQ7Y9tqk43Lxf91523YoHfvvZz --isToken2022 true
+     ```
+
+   - **Output**:
+     The command will return the user's associated token account (ATA) address. Example:
+     ```plaintext
+     User token account: 3qjUVuqkQrGxkLzxEc4NTPECGnvUcrsDBFUarKe3tarP
+     ```
 
 ### Notes
 

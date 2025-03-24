@@ -8,6 +8,7 @@ import getAmmConfig from '../client/instructions/getAmmConfig';
 import getCollectFundFeeData from '../client/instructions/data/collectFundFeeData';
 import getCollectProtocolFeeData from '../client/instructions/data/collectProtocolFeeData';
 import getAmmConfigAddressByIndex from '../client/instructions/getAmmConfigAddress';
+import getUserTokenAccount from '../client/utils/getUserTokenAccount';
 
 yargs(hideBin(process.argv))
   .scriptName('pcs_cp')
@@ -135,6 +136,48 @@ yargs(hideBin(process.argv))
 
       const data = await getCollectProtocolFeeData(argv.amount0, argv.amount1);
       console.log('data:', data);
+    },
+  )
+  .command(
+    'get_user_token_account',
+    "Get the user's associated token account (ATA)",
+    (yargs) =>
+      yargs
+        .option('userAddress', {
+          type: 'string',
+          describe: 'User wallet address',
+          demandOption: true,
+        })
+        .option('tokenMintAddress', {
+          type: 'string',
+          describe: 'Token mint address',
+          demandOption: true,
+        })
+        .option('isToken2022', {
+          type: 'boolean',
+          default: false,
+          describe: 'Whether to use Token 2022 program ID',
+        })
+        .option('allowOwnerOffCurve', {
+          type: 'boolean',
+          default: false,
+          describe: 'Allow owner off curve',
+        }),
+    async (argv) => {
+      console.log('get user token account...');
+      console.log('userAddress:', argv.userAddress);
+      console.log('tokenMintAddress:', argv.tokenMintAddress);
+      console.log('isToken2022:', argv.isToken2022);
+      console.log('allowOwnerOffCurve:', argv.allowOwnerOffCurve);
+
+      const tokenAccount = await getUserTokenAccount(
+        argv.userAddress as string,
+        argv.tokenMintAddress as string,
+        argv.isToken2022 as boolean,
+        argv.allowOwnerOffCurve as boolean,
+      );
+
+      console.log('User token account:', tokenAccount);
     },
   )
 
