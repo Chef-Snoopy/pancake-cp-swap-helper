@@ -6,7 +6,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "dev": "npx ts-node src/server.ts",
-    "pcs_cp":"npx ts-node ./src/bin/PancakeCpSwap.ts"
+    "pcs_cp": "npx ts-node ./src/bin/PancakeCpSwap.ts"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Chef-Snoopy/pancake-cp-swap-helper#readme",
   "description": "",
   "dependencies": {
+    "@coral-xyz/borsh": "^0.31.0",
     "@project-serum/anchor": "^0.26.0",
     "@solana/spl-governance": "^0.3.28",
     "@solana/spl-token": "^0.4.12",
@@ -32,6 +33,7 @@
     "chai": "^4.2.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "js-sha256": "^0.11.0",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
