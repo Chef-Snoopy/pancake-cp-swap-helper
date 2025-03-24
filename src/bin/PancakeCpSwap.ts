@@ -9,6 +9,7 @@ import getCollectFundFeeData from '../client/instructions/data/collectFundFeeDat
 import getCollectProtocolFeeData from '../client/instructions/data/collectProtocolFeeData';
 import getAmmConfigAddressByIndex from '../client/instructions/getAmmConfigAddress';
 import getUserTokenAccount from '../client/utils/getUserTokenAccount';
+import getAuthorityAddress from '../client/instructions/getAuthorityAddress';
 
 yargs(hideBin(process.argv))
   .scriptName('pcs_cp')
@@ -30,6 +31,26 @@ yargs(hideBin(process.argv))
 
       const [ammConfigAddress, bump] = await getAmmConfigAddressByIndex(programId, index);
       console.log('amm config address:', ammConfigAddress.toBase58());
+    },
+  )
+  .command(
+    'authority_address',
+    'Get the authority address for a given program ID',
+    (yargs) =>
+      yargs.option('programId', {
+        type: 'string',
+        describe: 'The program ID',
+        demandOption: true,
+      }),
+    async (argv) => {
+      console.log('Fetching authority address...');
+      console.log('programId:', argv.programId);
+
+      const programId = new PublicKey(argv.programId as string);
+      const [authorityAddress, bump] = await getAuthorityAddress(programId);
+
+      console.log('Authority Address:', authorityAddress.toBase58());
+      console.log('Bump:', bump);
     },
   )
   .command(
