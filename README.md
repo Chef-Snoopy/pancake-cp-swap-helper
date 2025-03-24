@@ -49,8 +49,6 @@ yarn pcs_cp --help
      ```plaintext
      amm config address: 4cqiCu7pWjTrYz2x2JGDmCAtTcRZzCzZPhRmkrPunJsm
      ```
-
-2. **`yarn pcs_cp amm_config`**
 #### 2. `yarn pcs_cp amm_config`
 
    - **Description**: Fetches the AMM configuration for a given `index` and `programId`.
