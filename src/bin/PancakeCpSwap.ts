@@ -5,7 +5,8 @@ import { PublicKey } from '@solana/web3.js';
 import getPoolAccountKey from '../client/instructions/getPoolId';
 import getPoolState from '../client/instructions/getPoolState';
 import getAmmConfig from '../client/instructions/getAmmConfig';
-import getCollectFundFeeData from '../client/instructions/data/collectFeeFundData';
+import getCollectFundFeeData from '../client/instructions/data/collectFundFeeData';
+import getCollectProtocolFeeData from '../client/instructions/data/collectProtocolFeeData';
 
 yargs(hideBin(process.argv))
   .scriptName('pcs_cp')
@@ -69,14 +70,50 @@ yargs(hideBin(process.argv))
     'Collect Fund Fee Instruction Data',
     (yargs) =>
       yargs
-        .option('amount0', { type: Number, default: 0, describe: 'The maximum amount of token_0 to send, can be 0 to collect fees in only token_1' })
-        .option('amount1', { type: Number, default: 0, describe: 'The maximum amount of token_1 to send, can be 0 to collect fees in only token_0' }),
+        .option('amount0', {
+          type: Number,
+          default: 0,
+          describe:
+            'The maximum amount of token_0 to send, can be 0 to collect fees in only token_1',
+        })
+        .option('amount1', {
+          type: Number,
+          default: 0,
+          describe:
+            'The maximum amount of token_1 to send, can be 0 to collect fees in only token_0',
+        }),
     async (argv) => {
       console.log('collect fund fee data...');
       console.log('amount0:', argv.amount0);
       console.log('amount1:', argv.amount1);
 
       const data = await getCollectFundFeeData(argv.amount0, argv.amount1);
+      console.log('data:', data);
+    },
+  )
+  .command(
+    'collect_protocol_fee_data',
+    'Collect Protocol Fee Instruction Data',
+    (yargs) =>
+      yargs
+        .option('amount0', {
+          type: Number,
+          default: 0,
+          describe:
+            'The maximum amount of token_0 to send, can be 0 to collect fees in only token_1',
+        })
+        .option('amount1', {
+          type: Number,
+          default: 0,
+          describe:
+            'The maximum amount of token_1 to send, can be 0 to collect fees in only token_0',
+        }),
+    async (argv) => {
+      console.log('collect protocol fee data...');
+      console.log('amount0:', argv.amount0);
+      console.log('amount1:', argv.amount1);
+
+      const data = await getCollectProtocolFeeData(argv.amount0, argv.amount1);
       console.log('data:', data);
     },
   )

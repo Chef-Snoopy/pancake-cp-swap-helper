@@ -78,6 +78,30 @@ yarn pcs_cp --help
      Base58: 3vQB7B6MrGQZaxCuFg4oh
      ```
 
+4. **`yarn pcs_cp collect_protocol_fee_data`**
+
+   - **Description**: Generates instruction data for collecting protocol fees with the specified amounts.
+   - **Usage**:
+     ```shell
+     yarn pcs_cp collect_protocol_fee_data --amount0 <amount0> --amount1 <amount1>
+     ```
+   - **Parameters**:
+
+     - `--amount0` (required): The requested amount for token0. Example: `9`.
+     - `--amount1` (required): The requested amount for token1. Example: `7`.
+
+   - **Example**:
+     ```shell
+     yarn pcs_cp collect_protocol_fee_data --amount0 9 --amount1 7
+     ```
+
+   - **Output**:
+     The command will return the instruction data in both `hex` and `base58` formats. Example:
+     ```plaintext
+     Hex: abcdef1234567890abcdef1234567890
+     Base58: 4vQB7B6MrGQZaxCuFg4oh
+     ```
+
 ### Notes
 
 - Replace the query parameters (`index`, `programId`, `token0Mint`, `token1Mint`, `amount0`, `amount1`) with appropriate values as needed.
