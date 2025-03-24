@@ -37,7 +37,7 @@ yarn pcs_cp --help
    - **Output**:
      The command will return the AMM Config Address in Base58 format. Example:
      ```plaintext
-     amm config address: 6Nd1m3zX6y3k5y3k5y3k5y3k5y3k5y3k5y3k5y3k5
+     amm config address: 4cqiCu7pWjTrYz2x2JGDmCAtTcRZzCzZPhRmkrPunJsm
      ```
 
 2. **`yarn pcs_cp amm_config`**
@@ -93,8 +93,8 @@ yarn pcs_cp --help
    - **Output**:
      The command will return the instruction data in both `hex` and `base58` formats. Example:
      ```plaintext
-     Hex: 1234567890abcdef1234567890abcdef
-     Base58: 3vQB7B6MrGQZaxCuFg4oh
+     Hex: 'a78a4e95dfc2067e09000000000000000700000000000000'
+     Base58: 'GGsXmpU86JjxG5Ms9aAUPCJSw84SjvfgB'
      ```
 
 5. **`yarn pcs_cp collect_protocol_fee_data`**
@@ -116,8 +116,8 @@ yarn pcs_cp --help
    - **Output**:
      The command will return the instruction data in both `hex` and `base58` formats. Example:
      ```plaintext
-     Hex: abcdef1234567890abcdef1234567890
-     Base58: 4vQB7B6MrGQZaxCuFg4oh
+     Hex: '8888fcddc2427e5909000000000000000700000000000000'
+     Base58: 'DSw1Ab12gjzNAFVfRrqoJeNn3o7irvEtf'
      ```
 
 ### Notes
