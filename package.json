@@ -6,11 +6,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "dev": "npx ts-node src/server.ts",
-    "get_amm_config_addr": "ts-node src/client/instructions/getAmmConfigAddress.ts",
-    "get_authority_addr": "ts-node src/client/instructions/getAuthorityAddress.ts",
-    "get_pool_id": "ts-node src/client/instructions/getPoolId.ts",
-    "get_pool_state": "ts-node src/client/instructions/getPoolState.ts",
-    "get_amm_config": "ts-node src/client/instructions/getAmmConfig.ts"
+    "pcs_cp":"npx ts-node ./src/bin/PancakeCpSwap.ts"
   },
   "repository": {
     "type": "git",
@@ -35,7 +31,8 @@
     "bs58": "^6.0.0",
     "chai": "^4.2.0",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",

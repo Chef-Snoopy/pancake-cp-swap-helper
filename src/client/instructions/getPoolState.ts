@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import getIDL from '../idl/program_idl';
 import provider from '../utils/getProvider';
 import getPoolId from './getPoolId';
+import getAuthorityAddress from './getAuthorityAddress';
 dotenv.config();
 
 anchor.setProvider(provider);
@@ -15,6 +16,7 @@ const IDL = getIDL();
 
 // poolStateAddress is pool id
 async function getPoolState(programId: PublicKey, poolStateAddress: PublicKey) {
+  let [authority, _] = await getAuthorityAddress(programId);
   const program = new Program(IDL as Idl, programId, provider);
   const poolStateAccount = await program.account.poolState.fetch(poolStateAddress);
   // console.log("Pool State Account:", poolStateAccount);
@@ -44,6 +46,8 @@ async function getPoolState(programId: PublicKey, poolStateAddress: PublicKey) {
   // console.log("Padding:", poolStateAccount.padding);
 
   const poolState = {
+    authority: authority.toBase58(),
+    poolState: poolStateAddress.toBase58(),
     ammConfig: (poolStateAccount.ammConfig as PublicKey).toBase58(),
     poolCreator: (poolStateAccount.poolCreator as PublicKey).toBase58(),
     token0Vault: (poolStateAccount.token0Vault as PublicKey).toBase58(),
