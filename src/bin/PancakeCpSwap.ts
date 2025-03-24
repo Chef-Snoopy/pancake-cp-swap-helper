@@ -180,5 +180,35 @@ yargs(hideBin(process.argv))
       console.log('User token account:', tokenAccount);
     },
   )
+  .command(
+    'sort_token_order',
+    'Sort token0 and token1 addresses',
+    (yargs) =>
+      yargs
+        .option('t0', {
+          type: 'string',
+          describe: 'The mint address of first token',
+          demandOption: true,
+        })
+        .option('t1', {
+          type: 'string',
+          describe: 'The mint address of second token',
+          demandOption: true,
+        }),
+    async (argv) => {
+      console.log('Sorting tokens...');
+      console.log('first token:', argv.t0);
+      console.log('second:', argv.t1);
 
+      const token0 = new PublicKey(argv.t0 as string);
+      const token1 = new PublicKey(argv.t1 as string);
+
+      // Sort tokens by their Base58 string representation
+      let sortedTokens = [token0, token1].sort((a, b) => a.toBase58().localeCompare(b.toBase58()));
+
+      console.log('Sorted tokens:');
+      console.log('token0:', sortedTokens[0].toBase58());
+      console.log('token1:', sortedTokens[1].toBase58());
+    },
+  )
   .help().argv;

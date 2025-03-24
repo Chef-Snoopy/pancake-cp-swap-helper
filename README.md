@@ -26,10 +26,12 @@ yarn pcs_cp --help
      yarn pcs_cp amm_config_address --programId <programId> --index <index>
      ```
    - **Parameters**:
+
      - `--programId` (required): The Solana program ID for the AMM. Example: `7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi`.
      - `--index` (optional): The index of the AMM configuration. Default: `0`.
 
    - **Example**:
+
      ```shell
      yarn pcs_cp amm_config_address --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi --index 0
      ```
@@ -48,6 +50,7 @@ yarn pcs_cp --help
      yarn pcs_cp amm_config --programId <programId> --index <index>
      ```
    - **Parameters**:
+
      - `--programId` (required): The Solana program ID for the AMM. Example: `7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi`.
      - `--index` (optional): The index of the AMM configuration. Default: `0`.
 
@@ -64,6 +67,7 @@ yarn pcs_cp --help
      yarn pcs_cp pool_state --programId <programId> --index <index> --t0 <token0Mint> --t1 <token1Mint>
      ```
    - **Parameters**:
+
      - `--programId` (required): The Solana program ID for the pool. Example: `7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi`.
      - `--index` (optional): The index of the pool. Default: `0`.
      - `--t0` (required): The mint address of the first token in the pool. Example: `HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj`.
@@ -82,10 +86,12 @@ yarn pcs_cp --help
      yarn pcs_cp collect_fund_fee_data --amount0 <amount0> --amount1 <amount1>
      ```
    - **Parameters**:
+
      - `--amount0` (required): The requested amount for token0. Example: `9`.
      - `--amount1` (required): The requested amount for token1. Example: `7`.
 
    - **Example**:
+
      ```shell
      yarn pcs_cp collect_fund_fee_data --amount0 9 --amount1 7
      ```
@@ -105,10 +111,12 @@ yarn pcs_cp --help
      yarn pcs_cp collect_protocol_fee_data --amount0 <amount0> --amount1 <amount1>
      ```
    - **Parameters**:
+
      - `--amount0` (required): The requested amount for token0. Example: `9`.
      - `--amount1` (required): The requested amount for token1. Example: `7`.
 
    - **Example**:
+
      ```shell
      yarn pcs_cp collect_protocol_fee_data --amount0 9 --amount1 7
      ```
@@ -119,6 +127,7 @@ yarn pcs_cp --help
      Hex: '8888fcddc2427e5909000000000000000700000000000000'
      Base58: 'DSw1Ab12gjzNAFVfRrqoJeNn3o7irvEtf'
      ```
+
 6. **`yarn pcs_cp get_user_token_account`**
 
    - **Description**: Retrieves the user's associated token account (ATA) for a given wallet address and token mint.
@@ -127,12 +136,14 @@ yarn pcs_cp --help
      yarn pcs_cp get_user_token_account --userAddress <userAddress> --tokenMintAddress <tokenMintAddress> [--isToken2022] [--allowOwnerOffCurve]
      ```
    - **Parameters**:
+
      - `--userAddress` (required): The user's wallet address. Example: `Cf3AyfodkbVZcQdeLgSL6v1vabBXyrgcaj3Ntza3f5gP`.
      - `--tokenMintAddress` (required): The mint address of the token. Example: `2aA85X6B5QHESQHkwQmQ7Y9tqk43Lxf91523YoHfvvZz`.
      - `--isToken2022` (optional): Whether to use the Token 2022 program ID. Default: `false`.
      - `--allowOwnerOffCurve` (optional): Whether to allow owner off curve. Default: `false`.
 
    - **Example**:
+
      ```shell
      yarn pcs_cp get_user_token_account --userAddress Cf3AyfodkbVZcQdeLgSL6v1vabBXyrgcaj3Ntza3f5gP --tokenMintAddress 2aA85X6B5QHESQHkwQmQ7Y9tqk43Lxf91523YoHfvvZz --isToken2022 true
      ```
@@ -141,6 +152,32 @@ yarn pcs_cp --help
      The command will return the user's associated token account (ATA) address. Example:
      ```plaintext
      User token account: 3qjUVuqkQrGxkLzxEc4NTPECGnvUcrsDBFUarKe3tarP
+     ```
+
+7. **`yarn pcs_cp sort_token_order`**
+
+   - **Description**: Sorts two token mint addresses (`token0` and `token1`) in order.
+   - **Usage**:
+     ```shell
+     yarn pcs_cp sort_token_order --t0 <token0Mint> --t1 <token1Mint>
+     ```
+   - **Parameters**:
+
+     - `--t0` (required): The mint address of the first token. Example: `HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj`.
+     - `--t1` (required): The mint address of the second token. Example: `Hn1deFTBXS8iBLFHTx4AREoXTzqv4VeEq715NemZaqxf`.
+
+   - **Example**:
+
+     ```shell
+     yarn pcs_cp sort_token_order --t0 HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj --t1 Hn1deFTBXS8iBLFHTx4AREoXTzqv4VeEq715NemZaqxf
+     ```
+
+   - **Output**:
+     The command will return the sorted token addresses. Example:
+     ```plaintext
+     Sorted tokens:
+     token0: Hn1deFTBXS8iBLFHTx4AREoXTzqv4VeEq715NemZaqxf
+     token1: HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj
      ```
 
 ### Notes
