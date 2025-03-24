@@ -80,7 +80,7 @@ yarn pcs_cp --help
 - **Parameters**:
 
   - `--programId` (required): The Solana program ID for the pool. Example: `7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi`.
-  - `--index` (optional): The index of the pool. Default: `0`.
+  - `--index` (optional): The index of the AMM configuration. Default: `0`.
   - `--t0` (required): The mint address of the first token in the pool. Example: `HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj`.
   - `--t1` (required): The mint address of the second token in the pool. Example: `Hn1deFTBXS8iBLFHTx4AREoXTzqv4VeEq715NemZaqxf`.
 
