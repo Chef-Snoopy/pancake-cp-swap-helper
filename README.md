@@ -54,7 +54,31 @@ yarn pcs_cp --help
      yarn pcs_cp pool_state --index 0 --t0 HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj --t1 Hn1deFTBXS8iBLFHTx4AREoXTzqv4VeEq715NemZaqxf --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi
      ```
 
+3. **`yarn pcs_cp collect_fund_fee_data`**
+
+   - **Description**: Generates instruction data for collecting fund fees with the specified amounts.
+   - **Usage**:
+     ```shell
+     yarn pcs_cp collect_fund_fee_data --amount0 <amount0> --amount1 <amount1>
+     ```
+   - **Parameters**:
+
+     - `--amount0` (required): The requested amount for token0. Example: `9`.
+     - `--amount1` (required): The requested amount for token1. Example: `7`.
+
+   - **Example**:
+     ```shell
+     yarn pcs_cp collect_fund_fee_data --amount0 9 --amount1 7
+     ```
+
+   - **Output**:
+     The command will return the instruction data in both `hex` and `base58` formats. Example:
+     ```plaintext
+     Hex: 1234567890abcdef1234567890abcdef
+     Base58: 3vQB7B6MrGQZaxCuFg4oh
+     ```
+
 ### Notes
 
-- Replace the query parameters (`index`, `programId`, `token0Mint`, `token1Mint`) with appropriate values as needed.
+- Replace the query parameters (`index`, `programId`, `token0Mint`, `token1Mint`, `amount0`, `amount1`) with appropriate values as needed.
 - Use `yarn pcs_cp --help` to see all available commands and options.
