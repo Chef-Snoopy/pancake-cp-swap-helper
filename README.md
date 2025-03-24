@@ -1,4 +1,4 @@
-# pancake-pcs_cp-helper
+# pancake-cp-swap-helper
 
 ## Environment Setup
 
@@ -18,43 +18,63 @@ yarn pcs_cp --help
 
 ### Available Commands
 
-1. **`yarn pcs_cp amm_config`**
+1. **`yarn pcs_cp amm_config_address`**
+
+   - **Description**: Calculates the AMM Config Address for a given `programId` and `index`.
+   - **Usage**:
+     ```shell
+     yarn pcs_cp amm_config_address --programId <programId> --index <index>
+     ```
+   - **Parameters**:
+     - `--programId` (required): The Solana program ID for the AMM. Example: `7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi`.
+     - `--index` (optional): The index of the AMM configuration. Default: `0`.
+
+   - **Example**:
+     ```shell
+     yarn pcs_cp amm_config_address --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi --index 0
+     ```
+
+   - **Output**:
+     The command will return the AMM Config Address in Base58 format. Example:
+     ```plaintext
+     amm config address: 6Nd1m3zX6y3k5y3k5y3k5y3k5y3k5y3k5y3k5y3k5
+     ```
+
+2. **`yarn pcs_cp amm_config`**
 
    - **Description**: Fetches the AMM configuration for a given `index` and `programId`.
    - **Usage**:
      ```shell
-     yarn pcs_cp amm_config --index <index> --programId <programId>
+     yarn pcs_cp amm_config --programId <programId> --index <index>
      ```
    - **Parameters**:
-
-     - `--index` (required): The index of the AMM configuration. Example: `0`.
      - `--programId` (required): The Solana program ID for the AMM. Example: `7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi`.
+     - `--index` (optional): The index of the AMM configuration. Default: `0`.
 
    - **Example**:
      ```shell
-     yarn pcs_cp amm_config --index 0 --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi
+     yarn pcs_cp amm_config --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi --index 0
      ```
 
-2. **`yarn pcs_cp pool_state`**
+3. **`yarn pcs_cp pool_state`**
 
    - **Description**: Fetches the pool state for a given `index`, `token0Mint`, `token1Mint`, and `programId`.
    - **Usage**:
      ```shell
-     yarn pcs_cp pool_state --index <index> --t0 <token0Mint> --t1 <token1Mint> --programId <programId>
+     yarn pcs_cp pool_state --programId <programId> --index <index> --t0 <token0Mint> --t1 <token1Mint>
      ```
    - **Parameters**:
-
-     - `--index` (required): The index of the pool. Example: `0`.
+     - `--programId` (required): The Solana program ID for the pool. Example: `7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi`.
+     - `--index` (optional): The index of the pool. Default: `0`.
      - `--t0` (required): The mint address of the first token in the pool. Example: `HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj`.
      - `--t1` (required): The mint address of the second token in the pool. Example: `Hn1deFTBXS8iBLFHTx4AREoXTzqv4VeEq715NemZaqxf`.
-     - `--programId` (required): The Solana program ID for the pool. Example: `7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi`.
 
    - **Example**:
      ```shell
-     yarn pcs_cp pool_state --index 0 --t0 HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj --t1 Hn1deFTBXS8iBLFHTx4AREoXTzqv4VeEq715NemZaqxf --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi
+     yarn pcs_cp pool_state --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi --index 0 --t0 HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj --t1 Hn1deFTBXS8iBLFHTx4AREoXTzqv4VeEq715NemZaqxf
      ```
 
-3. **`yarn pcs_cp collect_fund_fee_data`**
+4. **`yarn pcs_cp collect_fund_fee_data`**
 
    - **Description**: Generates instruction data for collecting fund fees with the specified amounts.
    - **Usage**:
@@ -62,7 +82,6 @@ yarn pcs_cp --help
      yarn pcs_cp collect_fund_fee_data --amount0 <amount0> --amount1 <amount1>
      ```
    - **Parameters**:
-
      - `--amount0` (required): The requested amount for token0. Example: `9`.
      - `--amount1` (required): The requested amount for token1. Example: `7`.
 
@@ -78,7 +97,7 @@ yarn pcs_cp --help
      Base58: 3vQB7B6MrGQZaxCuFg4oh
      ```
 
-4. **`yarn pcs_cp collect_protocol_fee_data`**
+5. **`yarn pcs_cp collect_protocol_fee_data`**
 
    - **Description**: Generates instruction data for collecting protocol fees with the specified amounts.
    - **Usage**:
@@ -86,7 +105,6 @@ yarn pcs_cp --help
      yarn pcs_cp collect_protocol_fee_data --amount0 <amount0> --amount1 <amount1>
      ```
    - **Parameters**:
-
      - `--amount0` (required): The requested amount for token0. Example: `9`.
      - `--amount1` (required): The requested amount for token1. Example: `7`.
 
@@ -104,5 +122,5 @@ yarn pcs_cp --help
 
 ### Notes
 
-- Replace the query parameters (`index`, `programId`, `token0Mint`, `token1Mint`, `amount0`, `amount1`) with appropriate values as needed.
+- Replace the query parameters (`programId`, `index`, `t0`, `t1`, `amount0`, `amount1`) with appropriate values as needed.
 - Use `yarn pcs_cp --help` to see all available commands and options.

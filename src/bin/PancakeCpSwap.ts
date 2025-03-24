@@ -7,10 +7,30 @@ import getPoolState from '../client/instructions/getPoolState';
 import getAmmConfig from '../client/instructions/getAmmConfig';
 import getCollectFundFeeData from '../client/instructions/data/collectFundFeeData';
 import getCollectProtocolFeeData from '../client/instructions/data/collectProtocolFeeData';
+import getAmmConfigAddressByIndex from '../client/instructions/getAmmConfigAddress';
 
 yargs(hideBin(process.argv))
   .scriptName('pcs_cp')
   .usage('$0 <cmd> [args]')
+  .command(
+    'amm_config_address',
+    'Calculate AMM Config Address',
+    (yargs) =>
+      yargs
+        .option('programId', { type: 'string', describe: 'Program ID' })
+        .option('index', { type: Number, default: 0, describe: 'Amm Config Index' }),
+    async (argv) => {
+      console.log('get pool state...');
+      console.log('id:', argv.programId);
+      console.log('index:', argv.index);
+
+      const programId = new PublicKey(argv.programId as string);
+      const index = parseInt(argv.index as string, 10);
+
+      const [ammConfigAddress, bump] = await getAmmConfigAddressByIndex(programId, index);
+      console.log('amm config address:', ammConfigAddress.toBase58());
+    },
+  )
   .command(
     'pool_state',
     'Get Pool State Information',
