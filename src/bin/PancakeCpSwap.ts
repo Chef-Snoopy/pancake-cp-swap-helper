@@ -11,6 +11,8 @@ import getAmmConfigAddressByIndex from '../client/instructions/getAmmConfigAddre
 import getUserTokenAccount from '../client/utils/getUserTokenAccount';
 import getAuthorityAddress from '../client/instructions/getAuthorityAddress';
 import getCreateAmmConfigData from '../client/instructions/data/createAmmConfigData';
+import collectFundFee from '../client/instructions/collectFundFee';
+import collectProtocolFee from '../client/instructions/collectProtocolFee';
 
 yargs(hideBin(process.argv))
   .scriptName('pcs_cp')
@@ -353,6 +355,138 @@ yargs(hideBin(process.argv))
 
       console.log('Instruction Data (Hex):', data.hex);
       console.log('Instruction Data (Base58):', data.base58);
+    },
+  )
+  .command(
+    'collect_fund_fee',
+    'Collect fund fees from a pool',
+    (yargs) =>
+      yargs
+        .option('programId', {
+          type: 'string',
+          describe: 'The program ID',
+          demandOption: true,
+        })
+        .option('poolState', {
+          type: 'string',
+          describe: 'The pool state address',
+          demandOption: true,
+        })
+        .option('recipientToken0Account', {
+          type: 'string',
+          describe: 'The recipient token0 account address',
+          demandOption: true,
+        })
+        .option('recipientToken1Account', {
+          type: 'string',
+          describe: 'The recipient token1 account address',
+          demandOption: true,
+        })
+        .option('amount0Requested', {
+          type: 'number',
+          describe: 'The amount of token0 requested',
+          demandOption: true,
+        })
+        .option('amount1Requested', {
+          type: 'number',
+          describe: 'The amount of token1 requested',
+          demandOption: true,
+        }),
+    async (argv) => {
+      console.log('Collecting fund fees...');
+      console.log('programId:', argv.programId);
+      console.log('poolState:', argv.poolState);
+      console.log('recipientToken0Account:', argv.recipientToken0Account);
+      console.log('recipientToken1Account:', argv.recipientToken1Account);
+      console.log('amount0Requested:', argv.amount0Requested);
+      console.log('amount1Requested:', argv.amount1Requested);
+
+      const programId = new PublicKey(argv.programId as string);
+      const poolState = new PublicKey(argv.poolState as string);
+      const recipientToken0Account = new PublicKey(argv.recipientToken0Account as string);
+      const recipientToken1Account = new PublicKey(argv.recipientToken1Account as string);
+      const amount0Requested = argv.amount0Requested as number;
+      const amount1Requested = argv.amount1Requested as number;
+
+      try {
+        const tx = await collectFundFee(
+          programId,
+          poolState,
+          recipientToken0Account,
+          recipientToken1Account,
+          amount0Requested,
+          amount1Requested,
+        );
+        console.log('Transaction signature:', tx);
+      } catch (error) {
+        console.error('Error collecting fund fee:', error);
+      }
+    },
+  )
+  .command(
+    'collect_protocol_fee',
+    'Collect protocol fees from a pool',
+    (yargs) =>
+      yargs
+        .option('programId', {
+          type: 'string',
+          describe: 'The program ID',
+          demandOption: true,
+        })
+        .option('poolState', {
+          type: 'string',
+          describe: 'The pool state address',
+          demandOption: true,
+        })
+        .option('recipientToken0Account', {
+          type: 'string',
+          describe: 'The recipient token0 account address',
+          demandOption: true,
+        })
+        .option('recipientToken1Account', {
+          type: 'string',
+          describe: 'The recipient token1 account address',
+          demandOption: true,
+        })
+        .option('amount0Requested', {
+          type: 'number',
+          describe: 'The amount of token0 requested',
+          demandOption: true,
+        })
+        .option('amount1Requested', {
+          type: 'number',
+          describe: 'The amount of token1 requested',
+          demandOption: true,
+        }),
+    async (argv) => {
+      console.log('Collecting protocol fees...');
+      console.log('programId:', argv.programId);
+      console.log('poolState:', argv.poolState);
+      console.log('recipientToken0Account:', argv.recipientToken0Account);
+      console.log('recipientToken1Account:', argv.recipientToken1Account);
+      console.log('amount0Requested:', argv.amount0Requested);
+      console.log('amount1Requested:', argv.amount1Requested);
+
+      const programId = new PublicKey(argv.programId as string);
+      const poolState = new PublicKey(argv.poolState as string);
+      const recipientToken0Account = new PublicKey(argv.recipientToken0Account as string);
+      const recipientToken1Account = new PublicKey(argv.recipientToken1Account as string);
+      const amount0Requested = argv.amount0Requested as number;
+      const amount1Requested = argv.amount1Requested as number;
+
+      try {
+        const tx = await collectProtocolFee(
+          programId,
+          poolState,
+          recipientToken0Account,
+          recipientToken1Account,
+          amount0Requested,
+          amount1Requested,
+        );
+        console.log('Transaction signature:', tx);
+      } catch (error) {
+        console.error('Error collecting protocol fee:', error);
+      }
     },
   )
   .help().argv;

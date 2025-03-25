@@ -29,6 +29,8 @@ yarn pcs_cp --help
 - [9. `yarn pcs_cp sort_token_order`](#9-yarn-pcs_cp-sort_token_order)
 - [10. `yarn pcs_cp authority_address`](#10-yarn-pcs_cp-authority_address)
 - [11. `yarn pcs_cp create_amm_config_data`](#11-yarn-pcs_cp-create_amm_config_data)
+- [12. `yarn pcs_cp collect_fund_fee`](#12-yarn-pcs_cp-collect_fund_fee)
+- [13. `yarn pcs_cp collect_protocol_fee`](#13-yarn-pcs_cp-collect_protocol_fee)
 
 ### Available Commands
 
@@ -282,6 +284,57 @@ yarn pcs_cp --help
      Instruction Data (Hex): 8934edd4d7756c680000204e000000000000c0d4010000000000409c000000000000807f870000000000
      Instruction Data (Base58): 3HpFwckDLu4anrc3VTv9gPYMcfE6SB4n2YZJ1EBHhAH3WLydoiHJ5BWrPy
      ```
+#### 12. `yarn pcs_cp collect_fund_fee`
+
+- **Description**: Collects fund fees from a pool for the specified token accounts and amounts.
+- **Usage**:
+  ```shell
+  yarn pcs_cp collect_fund_fee --programId <programId> --poolState <poolState> --recipientToken0Account <recipientToken0Account> --recipientToken1Account <recipientToken1Account> --amount0Requested <amount0Requested> --amount1Requested <amount1Requested>
+  ```
+- **Parameters**:
+  - `--programId` (required): The Solana program ID. Example: `7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi`.
+  - `--poolState` (required): The pool state address. Example: `4Nd1m3zX6y3k5y3k5y3k5y3k5y3k5y3k5y3k5`.
+  - `--recipientToken0Account` (required): The recipient token0 account address. Example: `HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj`.
+  - `--recipientToken1Account` (required): The recipient token1 account address. Example: `Hn1deFTBXS8iBLFHTx4AREoXTzqv4VeEq715NemZaqxf`.
+  - `--amount0Requested` (required): The amount of token0 requested. Example: `100`.
+  - `--amount1Requested` (required): The amount of token1 requested. Example: `200`.
+
+- **Example**:
+  ```shell
+  yarn pcs_cp collect_fund_fee --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi --poolState 4Nd1m3zX6y3k5y3k5y3k5y3k5y3k5y3k5y3k5 --recipientToken0Account HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj --recipientToken1Account Hn1deFTBXS8iBLFHTx4AREoXTzqv4VeEq715NemZaqxf --amount0Requested 100 --amount1Requested 200
+  ```
+
+- **Output**:
+  The command will return the transaction signature upon successful execution. Example:
+  ```plaintext
+  Transaction signature: 4QRPy3Qq6Ezm164zPomz69w6QHJKRjL8wfjQLeNrEKTJejfuUTnBbSRznrqpAvseRY9FekQUi5TbhHBNV1FEWM5q
+  ```
+
+#### 13. `yarn pcs_cp collect_protocol_fee`
+
+- **Description**: Collects protocol fees from a pool for the specified token accounts and amounts.
+- **Usage**:
+  ```shell
+  yarn pcs_cp collect_protocol_fee --programId <programId> --poolState <poolState> --recipientToken0Account <recipientToken0Account> --recipientToken1Account <recipientToken1Account> --amount0Requested <amount0Requested> --amount1Requested <amount1Requested>
+  ```
+- **Parameters**:
+  - `--programId` (required): The Solana program ID. Example: `7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi`.
+  - `--poolState` (required): The pool state address. Example: `4Nd1m3zX6y3k5y3k5y3k5y3k5y3k5y3k5y3k5`.
+  - `--recipientToken0Account` (required): The recipient token0 account address. Example: `HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj`.
+  - `--recipientToken1Account` (required): The recipient token1 account address. Example: `Hn1deFTBXS8iBLFHTx4AREoXTzqv4VeEq715NemZaqxf`.
+  - `--amount0Requested` (required): The amount of token0 requested. Example: `100`.
+  - `--amount1Requested` (required): The amount of token1 requested. Example: `200`.
+
+- **Example**:
+  ```shell
+  yarn pcs_cp collect_protocol_fee --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi --poolState 6wq7U2ShRrEtk9xHWpeFBGEMzcFV5DgjSAd8mHeN8zoE --recipientToken0Account 2RThMH4mUCGpe2NQWUdn8jSgtkgGWGoKmVpXjC6LuUyQ --recipientToken1Account EBZEZRN7h78zHj6YLeP62F3H23JYnyH86SX59qqj7LgY --amount0Requested 100 --amount1Requested 100
+  ```
+
+- **Output**:
+  The command will return the transaction signature upon successful execution. Example:
+  ```plaintext
+  Transaction signature: WpgeSUSPvEQCY7gmBctpinE425Z65J6QqhDXHcPifWoSKSVdLVMge7UxPu8aaC16D7ozxRmiMKSk1cnvPeRGYxw
+  ```
 
 ### Notes
 
