@@ -13,6 +13,7 @@ import getAuthorityAddress from '../client/instructions/getAuthorityAddress';
 import getCreateAmmConfigData from '../client/instructions/data/createAmmConfigData';
 import collectFundFee from '../client/instructions/collectFundFee';
 import collectProtocolFee from '../client/instructions/collectProtocolFee';
+import decodeSwapEvent from '../client/event/decodeSwapEvent';
 
 yargs(hideBin(process.argv))
   .scriptName('pcs_cp')
@@ -486,6 +487,30 @@ yargs(hideBin(process.argv))
         console.log('Transaction signature:', tx);
       } catch (error) {
         console.error('Error collecting protocol fee:', error);
+      }
+    },
+  )
+  .command(
+    'decode_swap_event',
+    'Decode SwapEvent Program Data',
+    (yargs) =>
+      yargs.option('data', {
+        type: 'string',
+        describe: 'The SwapEvent Program Data in Base58 format',
+        demandOption: true,
+      }),
+    async (argv) => {
+      console.log('Decoding SwapEvent Program Data...');
+      console.log('data:', argv.data);
+  
+      try {
+        const base58Data = argv.data as string;
+  
+        const decodedEvent = decodeSwapEvent(base58Data);
+  
+        console.log('Decoded Swap Event:', decodedEvent);
+      } catch (error) {
+        console.error('Error decoding SwapEvent Program Data:', error);
       }
     },
   )

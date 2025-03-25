@@ -31,6 +31,7 @@ yarn pcs_cp --help
 - [11. `yarn pcs_cp create_amm_config_data`](#11-yarn-pcs_cp-create_amm_config_data)
 - [12. `yarn pcs_cp collect_fund_fee`](#12-yarn-pcs_cp-collect_fund_fee)
 - [13. `yarn pcs_cp collect_protocol_fee`](#13-yarn-pcs_cp-collect_protocol_fee)
+- [14. `yarn pcs_cp decode_swap_event`](#14-yarn-pcs_cp-decode_swap_event)
 
 ### Available Commands
 
@@ -334,6 +335,37 @@ yarn pcs_cp --help
   The command will return the transaction signature upon successful execution. Example:
   ```plaintext
   Transaction signature: WpgeSUSPvEQCY7gmBctpinE425Z65J6QqhDXHcPifWoSKSVdLVMge7UxPu8aaC16D7ozxRmiMKSk1cnvPeRGYxw
+  ```
+#### 14. `yarn pcs_cp decode_swap_event`
+
+- **Description**: Decodes the `SwapEvent` Program Data from Base58 format.
+- **Usage**:
+  ```shell
+  yarn pcs_cp decode_swap_event --data <base58Data>
+  ```
+- **Parameters**:
+  - `--data` (required): The `SwapEvent` Program Data in Base58 format. Example: `QMbN6CYIceKt1WaadvnRftWwjq0xrsqHkuBLfHBm8q08bvmU05ns2g+eq4zRAAAAD56rjNEAAABA4gEAAAAAAArhAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=`.
+
+- **Example**:
+  ```shell
+  yarn pcs_cp decode_swap_event --data QMbN6CYIceKt1WaadvnRftWwjq0xrsqHkuBLfHBm8q08bvmU05ns2g+eq4zRAAAAD56rjNEAAABA4gEAAAAAAArhAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=
+  ```
+
+- **Output**:
+  The command will return the decoded `SwapEvent` object. Example:
+  ```plaintext
+  Decoding SwapEvent Program Data...
+  data: QMbN6CYIceKt1WaadvnRftWwjq0xrsqHkuBLfHBm8q08bvmU05ns2g+eq4zRAAAAD56rjNEAAABA4gEAAAAAAArhAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=
+  Decoded Swap Event: {
+    pool_id: 'ChaGLdkrr4FUJfjvU169UdEvdbJ5D6732DCEpsAuRmJq',
+    input_vault_before: 900008222223,
+    output_vault_before: 900008222223,
+    input_amount: 123456,
+    output_amount: 123146,
+    input_transfer_fee: 0,
+    output_transfer_fee: 0,
+    base_input: true
+  }
   ```
 
 ### Notes
