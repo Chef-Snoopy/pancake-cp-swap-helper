@@ -26,6 +26,7 @@ yarn pcs_cp --help
 - [6. `yarn pcs_cp get_user_token_account`](#6-yarn-pcs_cp-get_user_token_account)
 - [7. `yarn pcs_cp sort_token_order`](#7-yarn-pcs_cp-sort_token_order)
 - [8. `yarn pcs_cp authority_address`](#8-yarn-pcs_cp-authority_address)
+- [9. `yarn pcs_cp create_amm_config_data`](#9-yarn-pcs_cp-create_amm_config_data)
 
 ### Available Commands
 
@@ -214,6 +215,32 @@ yarn pcs_cp --help
   Authority Address: DMniUUFG7jkXg8dAoWZwbcf2AiYFtYMvKNmdj9CVBaXw
   Bump: 255
   ```
+
+#### 9. `yarn pcs_cp create_amm_config_data`
+
+   - **Description**: Generates raw instruction data for creating an AMM config.
+   - **Usage**:
+     ```shell
+     yarn pcs_cp create_amm_config_data --index <index> --tradeFeeRate <tradeFeeRate> --protocolFeeRate <protocolFeeRate> --fundFeeRate <fundFeeRate> --createPoolFee <createPoolFee>
+     ```
+   - **Parameters**:
+     - `--index` (required): The index of the AMM config. Example: `2`.
+     - `--tradeFeeRate` (required): The trade fee rate. Example: `20000` , 2%.
+     - `--protocolFeeRate` (required): The protocol fee rate. Example: `120000`, 12%.
+     - `--fundFeeRate` (required): The fund fee rate. Example: `40000`, 4%.
+     - `--createPoolFee` (required): The fee for creating a pool. Example: `8880000`.
+
+   - **Example**:
+     ```shell
+     yarn pcs_cp create_amm_config_data --index 0 --tradeFeeRate 20000 --protocolFeeRate 120000 --fundFeeRate 40000 --createPoolFee 8880000
+     ```
+
+   - **Output**:
+     The command will return the raw instruction data in both hex and base58 formats. Example:
+     ```plaintext
+     Instruction Data (Hex): 8934edd4d7756c680000204e000000000000c0d4010000000000409c000000000000807f870000000000
+     Instruction Data (Base58): 3HpFwckDLu4anrc3VTv9gPYMcfE6SB4n2YZJ1EBHhAH3WLydoiHJ5BWrPy
+     ```
 
 ### Notes
 

@@ -10,6 +10,7 @@ import getCollectProtocolFeeData from '../client/instructions/data/collectProtoc
 import getAmmConfigAddressByIndex from '../client/instructions/getAmmConfigAddress';
 import getUserTokenAccount from '../client/utils/getUserTokenAccount';
 import getAuthorityAddress from '../client/instructions/getAuthorityAddress';
+import getCreateAmmConfigData from '../client/instructions/data/createAmmConfigData';
 
 yargs(hideBin(process.argv))
   .scriptName('pcs_cp')
@@ -230,6 +231,56 @@ yargs(hideBin(process.argv))
       console.log('Sorted tokens:');
       console.log('token0:', sortedTokens[0].toBase58());
       console.log('token1:', sortedTokens[1].toBase58());
+    },
+  )
+  .command(
+    'create_amm_config_data',
+    'Generate raw instruction data for creating an AMM config',
+    (yargs) =>
+      yargs
+        .option('index', {
+          type: 'number',
+          describe: 'The index of the AMM config',
+          demandOption: true,
+        })
+        .option('tradeFeeRate', {
+          type: 'number',
+          describe: 'The trade fee rate',
+          demandOption: true,
+        })
+        .option('protocolFeeRate', {
+          type: 'number',
+          describe: 'The protocol fee rate',
+          demandOption: true,
+        })
+        .option('fundFeeRate', {
+          type: 'number',
+          describe: 'The fund fee rate',
+          demandOption: true,
+        })
+        .option('createPoolFee', {
+          type: 'number',
+          describe: 'The fee for creating a pool',
+          demandOption: true,
+        }),
+    async (argv) => {
+      console.log('Generating create AMM config data...');
+      console.log('index:', argv.index);
+      console.log('tradeFeeRate:', argv.tradeFeeRate);
+      console.log('protocolFeeRate:', argv.protocolFeeRate);
+      console.log('fundFeeRate:', argv.fundFeeRate);
+      console.log('createPoolFee:', argv.createPoolFee);
+  
+      const data = getCreateAmmConfigData(
+        argv.index,
+        argv.tradeFeeRate,
+        argv.protocolFeeRate,
+        argv.fundFeeRate,
+        argv.createPoolFee,
+      );
+  
+      console.log('Instruction Data (Hex):', data.hex);
+      console.log('Instruction Data (Base58):', data.base58);
     },
   )
   .help().argv;
