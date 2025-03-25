@@ -55,6 +55,59 @@ yargs(hideBin(process.argv))
     },
   )
   .command(
+    'pool_state_address',
+    'Calculate the pool state address for a given program ID, index, and token mints',
+    (yargs) =>
+      yargs
+        .option('programId', {
+          type: 'string',
+          describe: 'The program ID',
+          demandOption: true,
+        })
+        .option('index', {
+          type: 'number',
+          describe: 'The index of the pool',
+          demandOption: true,
+        })
+        .option('token0Mint', {
+          type: 'string',
+          describe: 'The mint address of token0',
+          demandOption: true,
+        })
+        .option('token1Mint', {
+          type: 'string',
+          describe: 'The mint address of token1',
+          demandOption: true,
+        }),
+    async (argv) => {
+      console.log('Calculating pool state address...');
+      console.log('programId:', argv.programId);
+      console.log('index:', argv.index);
+      console.log('token0Mint:', argv.token0Mint);
+      console.log('token1Mint:', argv.token1Mint);
+
+      const programId = new PublicKey(argv.programId as string);
+      const index = argv.index as number;
+      let token0Mint = new PublicKey(argv.token0Mint as string);
+      let token1Mint = new PublicKey(argv.token1Mint as string);
+
+      // Ensure tokens are sorted lexicographically
+      if (token0Mint.toBase58() > token1Mint.toBase58()) {
+        [token0Mint, token1Mint] = [token1Mint, token0Mint];
+      }
+
+      const [poolAccountKey, bump] = await getPoolAccountKey(
+        programId,
+        index,
+        token0Mint,
+        token1Mint,
+      );
+
+      console.log('Pool State Address:', poolAccountKey.toBase58());
+      console.log('Bump:', bump);
+    },
+  )
+  .command(
     'pool_state',
     'Get Pool State Information',
     (yargs) =>
@@ -86,6 +139,25 @@ yargs(hideBin(process.argv))
         token1Mint,
       );
       const poolState = await getPoolState(programId, poolAccountKey);
+      console.log('pool state:', poolState);
+    },
+  )
+  .command(
+    'pool_state_by_address',
+    'Get Pool State Information from Pool State Address',
+    (yargs) =>
+      yargs
+        .option('programId', { type: 'string', describe: 'Program ID' })
+        .option('address', { type: 'string', describe: 'Pool State Address' }),
+    async (argv) => {
+      console.log('get pool state...');
+      console.log('id:', argv.programId);
+      console.log('address:', argv.address);
+
+      const programId = new PublicKey(argv.programId as string);
+      const poolStateAddress = new PublicKey(argv.address as string);
+
+      const poolState = await getPoolState(programId, poolStateAddress);
       console.log('pool state:', poolState);
     },
   )
@@ -270,7 +342,7 @@ yargs(hideBin(process.argv))
       console.log('protocolFeeRate:', argv.protocolFeeRate);
       console.log('fundFeeRate:', argv.fundFeeRate);
       console.log('createPoolFee:', argv.createPoolFee);
-  
+
       const data = getCreateAmmConfigData(
         argv.index,
         argv.tradeFeeRate,
@@ -278,7 +350,7 @@ yargs(hideBin(process.argv))
         argv.fundFeeRate,
         argv.createPoolFee,
       );
-  
+
       console.log('Instruction Data (Hex):', data.hex);
       console.log('Instruction Data (Base58):', data.base58);
     },

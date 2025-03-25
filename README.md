@@ -20,13 +20,15 @@ yarn pcs_cp --help
 
 - [1. `yarn pcs_cp amm_config_address`](#1-yarn-pcs_cp-amm_config_address)
 - [2. `yarn pcs_cp amm_config`](#2-yarn-pcs_cp-amm_config)
-- [3. `yarn pcs_cp pool_state`](#3-yarn-pcs_cp-pool_state)
-- [4. `yarn pcs_cp collect_fund_fee_data`](#4-yarn-pcs_cp-collect_fund_fee_data)
-- [5. `yarn pcs_cp collect_protocol_fee_data`](#5-yarn-pcs_cp-collect_protocol_fee_data)
-- [6. `yarn pcs_cp get_user_token_account`](#6-yarn-pcs_cp-get_user_token_account)
-- [7. `yarn pcs_cp sort_token_order`](#7-yarn-pcs_cp-sort_token_order)
-- [8. `yarn pcs_cp authority_address`](#8-yarn-pcs_cp-authority_address)
-- [9. `yarn pcs_cp create_amm_config_data`](#9-yarn-pcs_cp-create_amm_config_data)
+- [3. `yarn pcs_cp pool_state_address`](#3-yarn-pcs_cp-pool_state_address)
+- [4. `yarn pcs_cp pool_state`](#4-yarn-pcs_cp-pool_state)
+- [5. `yarn pcs_cp pool_state_by_address`](#5-yarn-pcs_cp-pool_state_by_address)
+- [6. `yarn pcs_cp collect_fund_fee_data`](#6-yarn-pcs_cp-collect_fund_fee_data)
+- [7. `yarn pcs_cp collect_protocol_fee_data`](#7-yarn-pcs_cp-collect_protocol_fee_data)
+- [8. `yarn pcs_cp get_user_token_account`](#8-yarn-pcs_cp-get_user_token_account)
+- [9. `yarn pcs_cp sort_token_order`](#9-yarn-pcs_cp-sort_token_order)
+- [10. `yarn pcs_cp authority_address`](#10-yarn-pcs_cp-authority_address)
+- [11. `yarn pcs_cp create_amm_config_data`](#11-yarn-pcs_cp-create_amm_config_data)
 
 ### Available Commands
 
@@ -70,8 +72,32 @@ yarn pcs_cp --help
   ```shell
   yarn pcs_cp amm_config --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi --index 0
   ```
+#### 3. `yarn pcs_cp pool_state_address`
 
-#### 3. `yarn pcs_cp pool_state`
+- **Description**: Calculates the pool state address for a given `programId`, `index`, and token mints.
+- **Usage**:
+  ```shell
+  yarn pcs_cp pool_state_address --programId <programId> --index <index> --token0Mint <token0Mint> --token1Mint <token1Mint>
+  ```
+- **Parameters**:
+  - `--programId` (required): The Solana program ID for the pool. Example: `7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi`.
+  - `--index` (required): The index of the pool. Example: `0`.
+  - `--token0Mint` (required): The mint address of token0. Example: `HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj`.
+  - `--token1Mint` (required): The mint address of token1. Example: `Hn1deFTBXS8iBLFHTx4AREoXTzqv4VeEq715NemZaqxf`.
+
+- **Example**:
+  ```shell
+  yarn pcs_cp pool_state_address --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi --index 0 --token0Mint HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj --token1Mint Hn1deFTBXS8iBLFHTx4AREoXTzqv4VeEq715NemZaqxf
+  ```
+
+- **Output**:
+  The command will return the pool state address and its bump value. Example:
+  ```plaintext
+  Pool State Address: CVp8wzY6VC7yqSeXjthRwn1R8qXAcctLY7tTibCC5mvH
+  Bump: 254
+  ```
+
+#### 4. `yarn pcs_cp pool_state`
 
 - **Description**: Fetches the pool state for a given `index`, `token0Mint`, `token1Mint`, and `programId`.
 - **Usage**:
@@ -89,8 +115,23 @@ yarn pcs_cp --help
   ```shell
   yarn pcs_cp pool_state --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi --index 0 --t0 HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj --t1 Hn1deFTBXS8iBLFHTx4AREoXTzqv4VeEq715NemZaqxf
   ```
+#### 5. `yarn pcs_cp pool_state_by_address`
 
-#### 4. `yarn pcs_cp collect_fund_fee_data`
+- **Description**: Fetches the pool state information using a given pool state address.
+- **Usage**:
+  ```shell
+  yarn pcs_cp pool_state_by_address --programId <programId> --address <poolStateAddress>
+  ```
+- **Parameters**:
+  - `--programId` (required): The Solana program ID. Example: `7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi`.
+  - `--address` (required): The pool state address. Example: `CVp8wzY6VC7yqSeXjthRwn1R8qXAcctLY7tTibCC5mvH`.
+
+- **Example**:
+  ```shell
+  yarn pcs_cp pool_state_by_address --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi --address CVp8wzY6VC7yqSeXjthRwn1R8qXAcctLY7tTibCC5mvH
+  ```
+
+#### 6. `yarn pcs_cp collect_fund_fee_data`
 
 - **Description**: Generates instruction data for collecting fund fees with the specified amounts.
 - **Usage**:
@@ -115,7 +156,7 @@ yarn pcs_cp --help
   Base58: 'GGsXmpU86JjxG5Ms9aAUPCJSw84SjvfgB'
   ```
 
-#### 5. `yarn pcs_cp collect_protocol_fee_data`
+#### 7. `yarn pcs_cp collect_protocol_fee_data`
 
 - **Description**: Generates instruction data for collecting protocol fees with the specified amounts.
 - **Usage**:
@@ -140,7 +181,7 @@ yarn pcs_cp --help
   Base58: 'DSw1Ab12gjzNAFVfRrqoJeNn3o7irvEtf'
   ```
 
-#### 6. `yarn pcs_cp get_user_token_account`
+#### 8. `yarn pcs_cp get_user_token_account`
 
 - **Description**: Retrieves the user's associated token account (ATA) for a given wallet address and token mint.
 - **Usage**:
@@ -166,7 +207,7 @@ yarn pcs_cp --help
   User token account: 3qjUVuqkQrGxkLzxEc4NTPECGnvUcrsDBFUarKe3tarP
   ```
 
-#### 7. `yarn pcs_cp sort_token_order`
+#### 9. `yarn pcs_cp sort_token_order`
 
 - **Description**: Sorts two token mint addresses (`token0` and `token1`) in order.
 - **Usage**:
@@ -192,7 +233,7 @@ yarn pcs_cp --help
   token1: HPaNPtnnPZahNdsM7Mg6aTAfDwhrc7Lusem975YrR4Wj
   ```
 
-#### 8. `yarn pcs_cp authority_address`
+#### 10. `yarn pcs_cp authority_address`
 
 - **Description**: Retrieves the authority address for a given program ID.
 - **Usage**:
@@ -216,7 +257,7 @@ yarn pcs_cp --help
   Bump: 255
   ```
 
-#### 9. `yarn pcs_cp create_amm_config_data`
+#### 11. `yarn pcs_cp create_amm_config_data`
 
    - **Description**: Generates raw instruction data for creating an AMM config.
    - **Usage**:
