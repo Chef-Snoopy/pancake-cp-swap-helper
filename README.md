@@ -32,6 +32,7 @@ yarn pcs_cp --help
 - [12. `yarn pcs_cp collect_fund_fee`](#12-yarn-pcs_cp-collect_fund_fee)
 - [13. `yarn pcs_cp collect_protocol_fee`](#13-yarn-pcs_cp-collect_protocol_fee)
 - [14. `yarn pcs_cp decode_swap_event`](#14-yarn-pcs_cp-decode_swap_event)
+- [15. `yarn pcs_cp get_swap_event`](#15-yarn-pcs_cp-get_swap_event)
 
 ### Available Commands
 
@@ -348,7 +349,7 @@ yarn pcs_cp --help
 
 - **Example**:
   ```shell
-  yarn pcs_cp decode_swap_event --data QMbN6CYIceKt1WaadvnRftWwjq0xrsqHkuBLfHBm8q08bvmU05ns2g+eq4zRAAAAD56rjNEAAABA4gEAAAAAAArhAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=
+  yarn pcs_cp decode_swap_event --data QMbN6CYIceKt1WaadvnRftWwjq0xrsqHkuBLfHBm8q08bvmU05ns2twnlozRAAAAEMSsjNEAAACJ5qcCAAAAABwrpgIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
   ```
 
 - **Output**:
@@ -365,6 +366,45 @@ yarn pcs_cp --help
     input_transfer_fee: 0,
     output_transfer_fee: 0,
     base_input: true
+  }
+  ```
+
+#### 15. `yarn pcs_cp get_swap_event`
+
+- **Description**: Fetches and decodes `SwapEvent` logs and events for a given program ID and transaction signature.
+
+- **Usage**:
+  ```shell
+  yarn pcs_cp get_swap_event --programId <programId> --signature <transactionSignature>
+  ```
+
+- **Parameters**:
+  - `--programId` (required): The Solana program ID. Example: `ByX8vTQDfMuTi8Th66LpXtXeTcRkg4CWfXcr6mRhdXi4`.
+  - `--signature` (required): The transaction signature to fetch and decode the SwapEvent logs and events. Example: `2wNfe41Q9bLZmcfUFFDzHAcavFWM8FRr9Kii3ZEzYsvt76ewB5g98hR3wkA9jnFJk9ZVGrMrFYnm9D6SuBhmBeuu`.
+
+- **Example**:
+  ```shell
+  yarn pcs_cp get_swap_event --programId ByX8vTQDfMuTi8Th66LpXtXeTcRkg4CWfXcr6mRhdXi4 --signature 2wNfe41Q9bLZmcfUFFDzHAcavFWM8FRr9Kii3ZEzYsvt76ewB5g98hR3wkA9jnFJk9ZVGrMrFYnm9D6SuBhmBeuu
+  ```
+
+- **Output**:
+  The command will fetch and decode the `SwapEvent` logs and events, displaying the result in the console. Example:
+  ```plaintext
+  Fetching and decoding SwapEvent logs and events...
+  programId: ByX8vTQDfMuTi8Th66LpXtXeTcRkg4CWfXcr6mRhdXi4
+  signature: 2wNfe41Q9bLZmcfUFFDzHAcavFWM8FRr9Kii3ZEzYsvt76ewB5g98hR3wkA9jnFJk9ZVGrMrFYnm9D6SuBhmBeuu
+  Swap Log and Event: {
+    log: [...],
+    event: {
+      pool_id: 'ChaGLdkrr4FUJfjvU169UdEvdbJ5D6732DCEpsAuRmJq',
+      input_vault_before: 900008222223,
+      output_vault_before: 900008222223,
+      input_amount: 123456,
+      output_amount: 123146,
+      input_transfer_fee: 0,
+      output_transfer_fee: 0,
+      base_input: true
+    }
   }
   ```
 

@@ -14,6 +14,7 @@ import getCreateAmmConfigData from '../client/instructions/data/createAmmConfigD
 import collectFundFee from '../client/instructions/collectFundFee';
 import collectProtocolFee from '../client/instructions/collectProtocolFee';
 import decodeSwapEvent from '../client/event/decodeSwapEvent';
+import getSwapLogAndEvent from '../client/event/getSwapLogAndEvent';
 
 yargs(hideBin(process.argv))
   .scriptName('pcs_cp')
@@ -502,15 +503,47 @@ yargs(hideBin(process.argv))
     async (argv) => {
       console.log('Decoding SwapEvent Program Data...');
       console.log('data:', argv.data);
-  
+
       try {
         const base58Data = argv.data as string;
-  
+
         const decodedEvent = decodeSwapEvent(base58Data);
-  
+
         console.log('Decoded Swap Event:', decodedEvent);
       } catch (error) {
         console.error('Error decoding SwapEvent Program Data:', error);
+      }
+    },
+  )
+  .command(
+    'get_swap_event',
+    'Fetch and decode SwapEvent logs and events',
+    (yargs) =>
+      yargs
+        .option('programId', {
+          type: 'string',
+          describe: 'The program ID',
+          demandOption: true,
+        })
+        .option('signature', {
+          type: 'string',
+          describe: 'The transaction signature',
+          demandOption: true,
+        }),
+    async (argv) => {
+      console.log('Fetching and decoding SwapEvent logs and events...');
+      console.log('programId:', argv.programId);
+      console.log('signature:', argv.signature);
+
+      try {
+        const programId = argv.programId;
+        const signature = argv.signature as string;
+
+        const swapLogAndEvent = await getSwapLogAndEvent(programId, signature);
+
+        console.log('Swap Log and Event:', swapLogAndEvent);
+      } catch (error) {
+        console.error('Error fetching SwapEvent logs and events:', error);
       }
     },
   )
