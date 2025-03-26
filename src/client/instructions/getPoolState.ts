@@ -1,6 +1,7 @@
 import * as anchor from '@project-serum/anchor';
 import { Program, AnchorProvider, web3, BN, Idl } from '@project-serum/anchor';
 import { Connection, PublicKey, Keypair } from '@solana/web3.js';
+import { TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID } from '@solana/spl-token';
 import bs58 from 'bs58';
 import dotenv from 'dotenv';
 import getIDL from '../idl/program_idl';
@@ -8,6 +9,7 @@ import provider from '../utils/getProvider';
 import getPoolId from './getPoolId';
 import getAuthorityAddress from './getAuthorityAddress';
 import convertJsonValues from '../utils/convertJsonValue';
+import getUserTokenAccountInfo from './getTokenAccountInfo';
 dotenv.config();
 
 anchor.setProvider(provider);
@@ -43,7 +45,7 @@ async function getPoolState(programId: PublicKey, poolStateAddress: PublicKey) {
   // console.log("Recent Epoch:", poolStateAccount.recentEpoch);
   // console.log("Padding:", poolStateAccount.padding);
 
-  const poolState = {
+  let poolState = {
     authority: authority.toBase58(),
     poolState: poolStateAddress.toBase58(),
     ammConfig: (poolStateAccount.ammConfig as PublicKey).toBase58(),
@@ -62,15 +64,34 @@ async function getPoolState(programId: PublicKey, poolStateAddress: PublicKey) {
     mint0Decimals: poolStateAccount.mint0Decimals,
     mint1Decimals: poolStateAccount.mint1Decimals,
     lpSupply: poolStateAccount.lpSupply,
+    reserve0: '',
+    reserve1: '',
     protocolFeesToken0: poolStateAccount.protocolFeesToken0,
     protocolFeesToken1: poolStateAccount.protocolFeesToken1,
     fundFeesToken0: poolStateAccount.fundFeesToken0,
     fundFeesToken1: poolStateAccount.fundFeesToken1,
     openTime: poolStateAccount.openTime,
     recentEpoch: poolStateAccount.recentEpoch,
-    // padding: poolStateAccount.padding,
+    padding: poolStateAccount.padding,
   };
-
+  const token_2022_program_id_string = TOKEN_2022_PROGRAM_ID.toBase58();
+  let token0AccountInfo = await getUserTokenAccountInfo(
+    poolState.token0Vault,
+    poolState.token0Program === token_2022_program_id_string,
+  );
+  let token1AccountInfo = await getUserTokenAccountInfo(
+    poolState.token1Vault,
+    poolState.token1Program === token_2022_program_id_string,
+  );
+  // calculate the pool reserves
+  let reserve0 = new BN(token0AccountInfo.amount)
+    .sub(new BN(poolState.protocolFeesToken0.toString()))
+    .sub(new BN(poolState.fundFeesToken0.toString()));
+  let reserve1 = new BN(token1AccountInfo.amount)
+    .sub(new BN(poolState.protocolFeesToken1.toString()))
+    .sub(new BN(poolState.fundFeesToken1.toString()));
+  poolState.reserve0 = reserve0.toString();
+  poolState.reserve1 = reserve1.toString();
   let poolState_format = convertJsonValues(poolState);
   return poolState_format;
 }

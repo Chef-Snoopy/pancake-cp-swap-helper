@@ -19,7 +19,7 @@ async function getUserTokenAccountInfo(tokenAccountAddress: string, isToken2022 
   );
 
   let tokenAccountInfo_format = convertJsonValues(tokenAccountInfo);
-  console.log(tokenAccountInfo_format);
+  return tokenAccountInfo_format;
 }
 
 export default getUserTokenAccountInfo;
