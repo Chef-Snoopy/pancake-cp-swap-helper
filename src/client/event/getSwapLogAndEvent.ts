@@ -6,7 +6,10 @@ import decodeSwapEvent from './decodeSwapEvent';
 const connection = provider.connection;
 
 async function getSwapLogAndEvent(programId: string, txSignature: string) {
-  const tx = await connection.getTransaction(txSignature, { commitment: 'finalized' });
+  const tx = await connection.getTransaction(txSignature, {
+    commitment: 'finalized',
+    maxSupportedTransactionVersion: 0,
+  });
 
   if (!tx) {
     console.log('Transaction not found.');
@@ -19,7 +22,7 @@ async function getSwapLogAndEvent(programId: string, txSignature: string) {
     let shouldPrint = false; // Flag to determine whether to start printing logs
     for (const log of tx.meta.logMessages) {
       // Check if the log contains the specified programId
-      if (log.includes(`Program ${programId} invoke [1]`)) {
+      if (log.includes(`Program ${programId} invoke`)) {
         console.log(`Found programId: ${programId}`);
         shouldPrint = true; // Start printing subsequent logs
       }
