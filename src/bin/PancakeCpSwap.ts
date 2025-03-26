@@ -15,6 +15,7 @@ import collectFundFee from '../client/instructions/collectFundFee';
 import collectProtocolFee from '../client/instructions/collectProtocolFee';
 import decodeSwapEvent from '../client/event/decodeSwapEvent';
 import getSwapLogAndEvent from '../client/event/getSwapLogAndEvent';
+import getPoolStateList from '../client/instructions/getPoolStateList';
 
 yargs(hideBin(process.argv))
   .scriptName('pcs_cp')
@@ -544,6 +545,26 @@ yargs(hideBin(process.argv))
         console.log('Swap Log and Event:', swapLogAndEvent);
       } catch (error) {
         console.error('Error fetching SwapEvent logs and events:', error);
+      }
+    },
+  )
+  .command(
+    'get_pool_state_list',
+    'Fetch and display all pool states for a given program ID',
+    (yargs) =>
+      yargs.option('programId', {
+        type: 'string',
+        describe: 'The program ID',
+        demandOption: true,
+      }),
+    async (argv) => {
+      try {
+        const programId = new PublicKey(argv.programId as string);
+
+        const poolStateList = await getPoolStateList(programId);
+        console.log(poolStateList);
+      } catch (error) {
+        console.error('Error fetching pool states:', error);
       }
     },
   )

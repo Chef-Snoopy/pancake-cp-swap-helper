@@ -33,6 +33,7 @@ yarn pcs_cp --help
 - [13. `yarn pcs_cp collect_protocol_fee`](#13-yarn-pcs_cp-collect_protocol_fee)
 - [14. `yarn pcs_cp decode_swap_event`](#14-yarn-pcs_cp-decode_swap_event)
 - [15. `yarn pcs_cp get_swap_event`](#15-yarn-pcs_cp-get_swap_event)
+- [16. `yarn pcs_cp get_pool_state_list`](#16-yarn-pcs_cp-get_pool_state_list)
 
 ### Available Commands
 
@@ -424,6 +425,26 @@ yarn pcs_cp --help
       base_input: true
     }
   }
+  ```
+
+#### 16. `yarn pcs_cp get_pool_state_list`
+
+- **Description**: Fetches and displays all pool states for a given program ID.
+
+- **Usage**:
+  ```shell
+  yarn pcs_cp get_pool_state_list --programId <programId>
+  ```
+
+- **Parameters**:
+  - `--programId` (required): The Solana program ID. Example: `7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi`.
+
+- **Example**:
+  ```shell
+  yarn pcs_cp get_pool_state_list --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi
+
+  ### you can generate a JSON file to save pool state list
+  yarn pcs_cp get_pool_state_list --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi > pool_list.json
   ```
 
 ### Notes
