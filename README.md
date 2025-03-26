@@ -34,6 +34,7 @@ yarn pcs_cp --help
 - [14. `yarn pcs_cp decode_swap_event`](#14-yarn-pcs_cp-decode_swap_event)
 - [15. `yarn pcs_cp get_swap_event`](#15-yarn-pcs_cp-get_swap_event)
 - [16. `yarn pcs_cp get_pool_state_list`](#16-yarn-pcs_cp-get_pool_state_list)
+- [17. `yarn pcs_cp token_account_info`](#17-yarn-pcs_cp-token_account_info)
 
 ### Available Commands
 
@@ -445,6 +446,23 @@ yarn pcs_cp --help
 
   ### you can generate a JSON file to save pool state list
   yarn pcs_cp get_pool_state_list --programId 7dyEnNFi78NL8gTutUTPqRSR25GCjXPAUpFhumy2yWWi > pool_list.json
+  ```
+#### 17. `yarn pcs_cp token_account_info`
+
+- **Description**: Fetches and displays information about a specific token account. Including token balance.
+
+- **Usage**:
+  ```shell
+  yarn pcs_cp token_account_info --tokenAccount <tokenAccountAddress> [--isToken2022 <true|false>]
+  ```
+
+- **Parameters**:
+  - `--tokenAccount` (required): The address of the token account. Example: `FiPgyaQtH2kaY955NRakywT1eiYMu9SdAqAVwfVbEV7e`.
+  - `--isToken2022` (optional): Whether the token account uses the Token 2022 program. Default is `false`.
+
+- **Example**:
+  ```shell
+  yarn pcs_cp token_account_info --tokenAccount FiPgyaQtH2kaY955NRakywT1eiYMu9SdAqAVwfVbEV7e --isToken2022 true
   ```
 
 ### Notes

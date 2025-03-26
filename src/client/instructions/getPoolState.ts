@@ -7,14 +7,12 @@ import getIDL from '../idl/program_idl';
 import provider from '../utils/getProvider';
 import getPoolId from './getPoolId';
 import getAuthorityAddress from './getAuthorityAddress';
+import convertJsonValues from '../utils/convertJsonValue';
 dotenv.config();
 
 anchor.setProvider(provider);
 
 const IDL = getIDL();
-// const defaultProgramId = new PublicKey(process.env.PROGRAM_ID!);
-
-// poolStateAddress is pool id
 async function getPoolState(programId: PublicKey, poolStateAddress: PublicKey) {
   let [authority, _] = await getAuthorityAddress(programId);
   const program = new Program(IDL as Idl, programId, provider);
@@ -73,7 +71,8 @@ async function getPoolState(programId: PublicKey, poolStateAddress: PublicKey) {
     // padding: poolStateAccount.padding,
   };
 
-  return poolState;
+  let poolState_format = convertJsonValues(poolState);
+  return poolState_format;
 }
 
 export default getPoolState;

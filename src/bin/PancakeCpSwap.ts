@@ -16,6 +16,7 @@ import collectProtocolFee from '../client/instructions/collectProtocolFee';
 import decodeSwapEvent from '../client/event/decodeSwapEvent';
 import getSwapLogAndEvent from '../client/event/getSwapLogAndEvent';
 import getPoolStateList from '../client/instructions/getPoolStateList';
+import getUserTokenAccountInfo from '../client/instructions/getTokenAccountInfo';
 
 yargs(hideBin(process.argv))
   .scriptName('pcs_cp')
@@ -565,6 +566,38 @@ yargs(hideBin(process.argv))
         console.log(poolStateList);
       } catch (error) {
         console.error('Error fetching pool states:', error);
+      }
+    },
+  )
+  .command(
+    'token_account_info',
+    'Fetch and display information about a specific token account',
+    (yargs) =>
+      yargs
+        .option('tokenAccount', {
+          type: 'string',
+          describe: 'The token account address',
+          demandOption: true,
+        })
+        .option('isToken2022', {
+          type: 'boolean',
+          default: false,
+          describe: 'Whether the token account uses the Token 2022 program',
+        }),
+    async (argv) => {
+      console.log('Fetching token account information...');
+      console.log('tokenAccount:', argv.tokenAccount);
+      console.log('isToken2022:', argv.isToken2022);
+
+      try {
+        const tokenAccountInfo = await getUserTokenAccountInfo(
+          argv.tokenAccount as string,
+          argv.isToken2022 as boolean,
+        );
+
+        console.log('Token Account Info:', tokenAccountInfo);
+      } catch (error) {
+        console.error('Error fetching token account information:', error);
       }
     },
   )
