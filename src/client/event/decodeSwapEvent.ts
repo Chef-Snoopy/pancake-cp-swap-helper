@@ -1,4 +1,4 @@
-const { PublicKey } = require('@solana/web3.js');
+import { PublicKey } from '@solana/web3.js';
 
 function decodeSwapEvent(base58Data: string) {
   // Convert Base58 to Buffer

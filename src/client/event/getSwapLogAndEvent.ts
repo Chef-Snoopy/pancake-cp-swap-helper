@@ -1,4 +1,4 @@
-const { Connection, PublicKey } = require('@solana/web3.js');
+import { Connection, PublicKey } from '@solana/web3.js';
 import { decode } from 'punycode';
 import provider from '../utils/getProvider';
 import decodeSwapEvent from './decodeSwapEvent';
