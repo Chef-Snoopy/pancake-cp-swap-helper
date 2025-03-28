@@ -2,6 +2,7 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import { PublicKey } from '@solana/web3.js';
+import { BN } from '@project-serum/anchor';
 import getPoolAccountKey from '../client/instructions/getPoolId';
 import getPoolState from '../client/instructions/getPoolState';
 import getAmmConfig from '../client/instructions/getAmmConfig';
@@ -98,10 +99,10 @@ yargs(hideBin(process.argv))
       let token1Mint = new PublicKey(argv.token1Mint as string);
 
       // Ensure tokens are sorted lexicographically
-      if (token0Mint.toBase58() > token1Mint.toBase58()) {
+      const isSorted = new BN(token0Mint.toBuffer()).lte(new BN(token1Mint.toBuffer()));
+      if (!isSorted) {
         [token0Mint, token1Mint] = [token1Mint, token0Mint];
       }
-
       const [poolAccountKey, bump] = await getPoolAccountKey(
         programId,
         index,
@@ -134,7 +135,8 @@ yargs(hideBin(process.argv))
       let token0Mint = new PublicKey(argv.t0 as string);
       let token1Mint = new PublicKey(argv.t1 as string);
 
-      if (token0Mint.toBase58() > token1Mint.toBase58()) {
+      const isSorted = new BN(token0Mint.toBuffer()).lte(new BN(token1Mint.toBuffer()));
+      if (!isSorted) {
         [token0Mint, token1Mint] = [token1Mint, token0Mint];
       }
 
@@ -300,15 +302,17 @@ yargs(hideBin(process.argv))
       console.log('first token:', argv.t0);
       console.log('second:', argv.t1);
 
-      const token0 = new PublicKey(argv.t0 as string);
-      const token1 = new PublicKey(argv.t1 as string);
+      let token0Mint = new PublicKey(argv.t0 as string);
+      let token1Mint = new PublicKey(argv.t1 as string);
 
-      // Sort tokens by their Base58 string representation
-      let sortedTokens = [token0, token1].sort((a, b) => a.toBase58().localeCompare(b.toBase58()));
+      const isSorted = new BN(token0Mint.toBuffer()).lte(new BN(token1Mint.toBuffer()));
+      if (!isSorted) {
+        [token0Mint, token1Mint] = [token1Mint, token0Mint];
+      }
 
       console.log('Sorted tokens:');
-      console.log('token0:', sortedTokens[0].toBase58());
-      console.log('token1:', sortedTokens[1].toBase58());
+      console.log('token0:', token0Mint.toBase58());
+      console.log('token1:', token1Mint.toBase58());
     },
   )
   .command(
